@@ -1,28 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<title>Generator Nama FF</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Generator Nama FF Keren 2026</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:
+linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+url("https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1600");
+background-size:cover;
+background-position:center;
+color:white;
+}
+
+.container{
+width:90%;
+max-width:650px;
+background:rgba(15,15,15,.85);
+backdrop-filter:blur(10px);
+padding:35px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 30px rgba(0,255,255,.4);
+}
+
+h1{
+font-size:32px;
+margin-bottom:10px;
+}
+
+p{
+opacity:.8;
+margin-bottom:25px;
+}
+
+.result{
+margin:25px 0;
+padding:20px;
+font-size:28px;
+font-weight:bold;
+border:2px solid #00ffff;
+border-radius:12px;
+min-height:80px;
+display:flex;
+align-items:center;
+justify-content:center;
+word-break:break-word;
+}
+
+.btn{
+padding:14px 25px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+margin:5px;
+transition:.3s;
+}
+
+.generate{
+background:#00e5ff;
+}
+
+.generate:hover{
+transform:scale(1.05);
+}
+
+.copy{
+background:#00c853;
+color:white;
+}
+
+.copy:hover{
+transform:scale(1.05);
+}
+
+.footer{
+margin-top:20px;
+font-size:13px;
+opacity:.6;
+}
+</style>
 </head>
 <body>
-<h1>Generator Nama FF Keren</h1>
 
-<button onclick="gen()">Generate</button>
+<div class="container">
 
-<p id="hasil"></p>
+<h1>🎮 Generator Nama FF Keren</h1>
+
+<p>Generate nickname gaming keren secara otomatis</p>
+
+<div class="result" id="hasil">
+Klik Generate
+</div>
+
+<button class="btn generate" onclick="generateName()">
+🎲 Generate Nama
+</button>
+
+<button class="btn copy" onclick="copyName()">
+📋 Copy Nama
+</button>
+
+<div class="footer">
+© 2026 xVamp Generator
+</div>
+
+</div>
 
 <script>
-const nama = [
-"『Dark』亗King",
-"꧁༒Shadow༒꧂",
-"⚡Legend⚡",
-"☠Death☠",
-"Ghost々Pro"
+
+const prefix = [
+"Dark","Shadow","Ghost","King","Queen","Dragon",
+"Demon","Wolf","Hunter","Legend","Thunder",
+"Venom","Titan","Reaper","Night","Storm",
+"Alpha","Omega","Nova","Viper","Phantom",
+"Skull","Rogue","Inferno","Blaze","Fury"
 ];
 
-function gen(){
-document.getElementById("hasil").innerHTML =
-nama[Math.floor(Math.random()*nama.length)];
+const symbol = [
+"亗","々","メ","ツ","乂","〆","✿","★","⚡","☠","✧"
+];
+
+const suffix = [
+"Pro","YT","Gaming","FF","ML","X","Z",
+"777","999","God","Boss","Elite",
+"Sniper","Master","VIP","XD","XR"
+];
+
+function generateName(){
+
+let p = prefix[Math.floor(Math.random()*prefix.length)];
+let s = symbol[Math.floor(Math.random()*symbol.length)];
+let f = suffix[Math.floor(Math.random()*suffix.length)];
+
+let random = Math.floor(Math.random()*999);
+
+let nickname =
+`『${p}』${s}${f}${random}`;
+
+document.getElementById("hasil").innerText =
+nickname;
 }
+
+function copyName(){
+
+let text =
+document.getElementById("hasil").innerText;
+
+navigator.clipboard.writeText(text);
+
+alert("Nama berhasil disalin!");
+}
+
 </script>
 
 </body>
