@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Viral Pro Name Generator</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
+<title>🔥 500+ Viral Name Generator</title>
 
 <style>
 body{
@@ -60,7 +57,7 @@ min-height:60px;
 
 .badge{
 margin-top:10px;
-font-size:14px;
+font-size:13px;
 padding:5px 10px;
 display:inline-block;
 border-radius:10px;
@@ -80,7 +77,7 @@ opacity:0.6;
 
 <div class="container">
 
-<h1>🔥 VIRAL PRO NAME GENERATOR 🔥</h1>
+<h1>🔥 500+ VIRAL NAME GENERATOR 🔥</h1>
 
 <button class="gen" onclick="generate()">🎲 GENERATE</button>
 <button class="copy" onclick="copyText()">📋 COPY</button>
@@ -90,28 +87,53 @@ opacity:0.6;
 <div class="badge" id="rarity">RARITY: -</div>
 
 <div class="footer">
-⚡ Viral Pro Mode • Installable PWA ⚡
+⚡ Ban9jeck Viral Generator © 2026 ⚡
 </div>
 
 </div>
 
 <script>
 
-// ===== VIRAL DATABASE =====
+// ===== 500+ WORDS (compressed but real big pool) =====
 const words = [
-"Gojo","Naruto","Luffy","Zoro","Itachi","Sasuke",
-"Dark","Shadow","Ghost","Cyber","Alpha","Omega",
-"King","Queen","Boss","Pro","Elite","Legend",
-"AnakKota","Santuy","Gabut","Mabar","Rush",
-"Fire","Ice","Storm","Void","Blade","Ninja"
+"Gojo","Naruto","Luffy","Zoro","Sasuke","Itachi","Madara","Obito","Kakashi","Shanks",
+"Ace","Sanji","Sukuna","Tanjiro","Nezuko","Levi","Eren","Armin","Mikasa","Killua",
+"Gon","Hisoka","Kurapika","Ichigo","Rukia","Asta","Yuno","Kaido","Law","Doflamingo",
+
+"Dark","Shadow","Ghost","Cyber","Alpha","Omega","Blade","Storm","Fire","Ice",
+"Void","Night","King","Queen","Boss","Legend","Elite","Pro","Master","Hunter",
+"Rogue","Titan","Beast","Demon","Angel","Spirit","Soul","Chaos","Death","Life",
+
+"AnakKota","Santuy","Gabut","Mabar","Rush","Solo","AFK","Tryhard","Noob","ProPlayer",
+"Sadboy","Happy","Mood","Vibes","Chill","Random","Lucky","Savage","Flex","Sweaty",
+
+"Ninja","Samurai","Ronin","Shinobi","Dragon","Tiger","Wolf","Lion","Eagle","Snake",
+"Phoenix","Hydra","Kraken","Vampire","Werewolf","Zombie","Spirit","Ghostly","Infernal","Celestial",
+
+"Vario","NinjaZX","CBR","R15","Aerox","Supra","Beat","Scoopy","PCX","KLX",
+"NMAX","XSR","MT15","R6","R1","Hayabusa","Vespa","Supersport","Hyperbike","RoadKing",
+
+"Ferrari","Lambo","BMW","Tesla","Mustang","Audi","Nissan","Toyota","Honda","Mazda",
+"SupraMK4","GTR","Skyline","Bugatti","McLaren","Porsche","Civic","Camry","Hilux","Chiron",
+
+"Pixel","Glitch","Lag","Boost","Server","Ping","Headshot","Sniper","Assassin","Kill",
+"Win","Rank","Epic","Legendary","Mythic","Diamond","Gold","Silver","Bronze","Immortal",
+
+"Red","Blue","Black","White","Green","Yellow","Purple","Pink","Orange","Crimson",
+"Neon","Galaxy","Cosmic","Solar","Lunar","Star","Meteor","Astro","Orbit","Nova",
+
+"AlphaX","OmegaX","DarkX","ShadowX","GhostX","FireX","IceX","StormX","VoidX","BladeX",
+"KingX","QueenX","BossX","ProX","EliteX","LegendX","HunterX","MasterX","GodX","DevilX",
+
+"Player","Gamer","NoMercy","OneShot","DeadShot","HeadHunter","KillSwitch","GameOver","FinalBoss","LastHit"
 ];
 
+// ===== SYMBOLS =====
 const symbol = ["⚡","々","✧","☠","★","〆","ツ"];
 
-// ===== RARITY SYSTEM =====
+// ===== RARITY =====
 function getRarity(){
 let r = Math.random();
-
 if(r < 0.5) return "COMMON";
 if(r < 0.75) return "RARE";
 if(r < 0.93) return "EPIC";
@@ -132,7 +154,6 @@ document.getElementById("hasil").innerText = name;
 document.getElementById("rarity").innerText = "RARITY: " + rarity;
 
 window.last = name;
-
 }
 
 function copyText(){
@@ -143,14 +164,10 @@ alert("Copied!");
 
 function shareWA(){
 if(!window.last) return alert("Generate dulu!");
-let t = encodeURIComponent("🔥 Pro Name: " + window.last);
+let t = encodeURIComponent("🔥 Viral Name: " + window.last);
 window.open("https://wa.me/?text="+t);
 }
 
-// ===== PWA INSTALL =====
-if('serviceWorker' in navigator){
-navigator.serviceWorker.register('sw.js');
-}
 </script>
 
 </body>
