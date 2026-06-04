@@ -3,44 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ Infinite Name Generator Pro</title>
+<title>🔥 Viral Pro Name Generator</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#050505,#111);
+background:linear-gradient(135deg,#050505,#0a0a0a);
 color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-overflow:hidden;
 }
 
 .container{
 width:95%;
 max-width:520px;
-background:rgba(20,20,20,0.9);
+background:rgba(25,25,25,0.9);
 padding:20px;
 border-radius:15px;
 text-align:center;
 box-shadow:0 0 25px #00ffff55;
-border:1px solid #00ffff33;
 }
 
 h1{
-font-size:20px;
+font-size:18px;
 text-shadow:0 0 10px #00ffff;
 }
 
-select,button{
+button{
 width:100%;
 padding:12px;
 margin-top:10px;
 border:none;
 border-radius:10px;
-font-size:14px;
+font-weight:bold;
 cursor:pointer;
 }
 
@@ -54,14 +55,17 @@ font-size:22px;
 font-weight:bold;
 color:#00ffcc;
 text-shadow:0 0 10px #00ffff;
-min-height:50px;
-word-break:break-word;
-animation:glow 1.5s infinite alternate;
+min-height:60px;
 }
 
-@keyframes glow{
-from{ text-shadow:0 0 5px #00ffff; }
-to{ text-shadow:0 0 20px #00ffff; }
+.badge{
+margin-top:10px;
+font-size:14px;
+padding:5px 10px;
+display:inline-block;
+border-radius:10px;
+background:#111;
+border:1px solid #00ffff55;
 }
 
 .footer{
@@ -76,96 +80,77 @@ opacity:0.6;
 
 <div class="container">
 
-<h1>⚡ INFINITE NAME GENERATOR PRO ⚡</h1>
-
-<select id="kategori">
-<option value="ANIME">ANIME</option>
-<option value="MOTOR">MOTOR</option>
-<option value="MOBIL">MOBIL</option>
-<option value="FF">FF</option>
-</select>
+<h1>🔥 VIRAL PRO NAME GENERATOR 🔥</h1>
 
 <button class="gen" onclick="generate()">🎲 GENERATE</button>
 <button class="copy" onclick="copyText()">📋 COPY</button>
 <button class="wa" onclick="shareWA()">📤 SHARE WA</button>
 
 <div class="result" id="hasil">Klik Generate</div>
+<div class="badge" id="rarity">RARITY: -</div>
 
 <div class="footer">
-⚡ Ban9jeck Infinite Mode © 2026 ⚡
+⚡ Viral Pro Mode • Installable PWA ⚡
 </div>
 
 </div>
 
 <script>
 
-// ===== 20 LIST PER KATEGORI =====
-const data = {
-ANIME:[
-"Gojo","Naruto","Sasuke","Itachi","Luffy","Zoro","Eren","Levi","Tanjiro","Sukuna",
-"Killua","Gon","Hisoka","Madara","Obito","Minato","Kakashi","Sanji","Shanks","Law"
-],
-
-MOTOR:[
-"Ninja","Vario","CBR","R15","Aerox","Supra","MT15","KLX","Scoopy","Fino",
-"PCX","Beat","Satria","GSX","Duke","Kawasaki","Yamaha","Honda","Suzuki","XSR"
-],
-
-MOBIL:[
-"Supra","Ferrari","BMW","Lambo","Tesla","Mustang","Audi","Porsche","Bugatti","McLaren",
-"Toyota","Honda","Nissan","Mazda","Lexus","GTR","Civic","Camry","Alphard","Hilux"
-],
-
-FF:[
-"Alok","Kelly","Hayato","Chrono","Wukong","Skyler","Dimitri","Kenta","Miguel","Andrew",
-"Caroline","Laura","Shani","Moco","Jota","Wolfrahh","Kapella","Maro","Orion","Xayne"
-]
-};
-
-// ===== INFINITE PART =====
-const prefix = [
-"Dark","Shadow","Ghost","Cyber","Night",
-"Alpha","Omega","Blade","Storm","Fire"
+// ===== VIRAL DATABASE =====
+const words = [
+"Gojo","Naruto","Luffy","Zoro","Itachi","Sasuke",
+"Dark","Shadow","Ghost","Cyber","Alpha","Omega",
+"King","Queen","Boss","Pro","Elite","Legend",
+"AnakKota","Santuy","Gabut","Mabar","Rush",
+"Fire","Ice","Storm","Void","Blade","Ninja"
 ];
 
-const symbol = ["々","⚡","✧","☠","★","〆","ツ"];
+const symbol = ["⚡","々","✧","☠","★","〆","ツ"];
+
+// ===== RARITY SYSTEM =====
+function getRarity(){
+let r = Math.random();
+
+if(r < 0.5) return "COMMON";
+if(r < 0.75) return "RARE";
+if(r < 0.93) return "EPIC";
+return "LEGEND";
+}
 
 function generate(){
 
-let type = document.getElementById("kategori").value;
-
-let baseList = data[type];
-
-let p = prefix[Math.floor(Math.random()*prefix.length)];
-let b = baseList[Math.floor(Math.random()*baseList.length)];
+let w1 = words[Math.floor(Math.random()*words.length)];
+let w2 = words[Math.floor(Math.random()*words.length)];
 let s = symbol[Math.floor(Math.random()*symbol.length)];
 let n = Math.floor(Math.random()*9999);
 
-let result = `『${p}${b}』${s}${n}`;
+let name = `${w1}${w2}${s}${n}`;
+let rarity = getRarity();
 
-document.getElementById("hasil").innerText = result;
-window.last = result;
+document.getElementById("hasil").innerText = name;
+document.getElementById("rarity").innerText = "RARITY: " + rarity;
+
+window.last = name;
 
 }
 
 function copyText(){
-if(!window.last){
-alert("Generate dulu!");
-return;
-}
+if(!window.last) return alert("Generate dulu!");
 navigator.clipboard.writeText(window.last);
 alert("Copied!");
 }
 
 function shareWA(){
-if(!window.last){
-alert("Generate dulu!");
-return;
-}
-let t = encodeURIComponent("🔥 Name: " + window.last);
+if(!window.last) return alert("Generate dulu!");
+let t = encodeURIComponent("🔥 Pro Name: " + window.last);
 window.open("https://wa.me/?text="+t);
 }
 
+// ===== PWA INSTALL =====
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('sw.js');
+}
 </script>
 
 </body>
