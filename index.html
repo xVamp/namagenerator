@@ -3,28 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 500+ Viral Name Generator</title>
+<title>🤖 AI Name Generator V2</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#050505,#0a0a0a);
-color:white;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+color:white;
+
+/* 🔥 CYBERPUNK ROBOT WALLPAPER */
+background:
+linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
+url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600");
+background-size:cover;
+background-position:center;
+overflow:hidden;
 }
 
 .container{
 width:95%;
 max-width:520px;
-background:rgba(25,25,25,0.9);
-padding:20px;
+background:rgba(10,10,10,0.85);
+border:1px solid #00ffff55;
 border-radius:15px;
+padding:20px;
 text-align:center;
-box-shadow:0 0 25px #00ffff55;
+backdrop-filter:blur(10px);
+box-shadow:0 0 30px #00ffff33;
 }
 
 h1{
@@ -38,8 +47,8 @@ padding:12px;
 margin-top:10px;
 border:none;
 border-radius:10px;
-font-weight:bold;
 cursor:pointer;
+font-weight:bold;
 }
 
 .gen{background:#00e5ff;}
@@ -57,12 +66,18 @@ min-height:60px;
 
 .badge{
 margin-top:10px;
-font-size:13px;
-padding:5px 10px;
+padding:6px 10px;
 display:inline-block;
 border-radius:10px;
 background:#111;
 border:1px solid #00ffff55;
+font-size:13px;
+}
+
+.rank{
+margin-top:5px;
+font-size:12px;
+opacity:0.8;
 }
 
 .footer{
@@ -77,94 +92,111 @@ opacity:0.6;
 
 <div class="container">
 
-<h1>🔥 500+ VIRAL NAME GENERATOR 🔥</h1>
+<h1>🤖 AI NAME GENERATOR V2</h1>
 
-<button class="gen" onclick="generate()">🎲 GENERATE</button>
+<button class="gen" onclick="generate()">⚡ GENERATE AI NAME</button>
 <button class="copy" onclick="copyText()">📋 COPY</button>
 <button class="wa" onclick="shareWA()">📤 SHARE WA</button>
 
 <div class="result" id="hasil">Klik Generate</div>
 <div class="badge" id="rarity">RARITY: -</div>
+<div class="rank" id="rank">TREND SCORE: -</div>
 
 <div class="footer">
-⚡ Ban9jeck Viral Generator © 2026 ⚡
+🤖 Cyberpunk AI Mode • Ban9jeck © 2026
 </div>
 
 </div>
 
 <script>
 
-// ===== 500+ WORDS (compressed but real big pool) =====
-const words = [
-"Gojo","Naruto","Luffy","Zoro","Sasuke","Itachi","Madara","Obito","Kakashi","Shanks",
-"Ace","Sanji","Sukuna","Tanjiro","Nezuko","Levi","Eren","Armin","Mikasa","Killua",
-"Gon","Hisoka","Kurapika","Ichigo","Rukia","Asta","Yuno","Kaido","Law","Doflamingo",
+/* =========================
+   🧠 WEIGHTED AI DATA
+========================= */
 
-"Dark","Shadow","Ghost","Cyber","Alpha","Omega","Blade","Storm","Fire","Ice",
-"Void","Night","King","Queen","Boss","Legend","Elite","Pro","Master","Hunter",
-"Rogue","Titan","Beast","Demon","Angel","Spirit","Soul","Chaos","Death","Life",
+const data = [
+{name:"Gojo", w:95},{name:"Naruto", w:90},{name:"Luffy", w:88},{name:"Zoro", w:85},
+{name:"Itachi", w:92},{name:"Sasuke", w:90},{name:"Madara", w:93},{name:"Levi", w:89},
 
-"AnakKota","Santuy","Gabut","Mabar","Rush","Solo","AFK","Tryhard","Noob","ProPlayer",
-"Sadboy","Happy","Mood","Vibes","Chill","Random","Lucky","Savage","Flex","Sweaty",
+{name:"Shadow", w:98},{name:"Dark", w:97},{name:"Ghost", w:95},{name:"Cyber", w:96},
+{name:"Alpha", w:90},{name:"Omega", w:88},{name:"Blade", w:85},{name:"Storm", w:87},
 
-"Ninja","Samurai","Ronin","Shinobi","Dragon","Tiger","Wolf","Lion","Eagle","Snake",
-"Phoenix","Hydra","Kraken","Vampire","Werewolf","Zombie","Spirit","Ghostly","Infernal","Celestial",
+{name:"King", w:80},{name:"Queen", w:78},{name:"Boss", w:82},{name:"Pro", w:85},
+{name:"Legend", w:99},{name:"Elite", w:93},{name:"Hunter", w:86},
 
-"Vario","NinjaZX","CBR","R15","Aerox","Supra","Beat","Scoopy","PCX","KLX",
-"NMAX","XSR","MT15","R6","R1","Hayabusa","Vespa","Supersport","Hyperbike","RoadKing",
-
-"Ferrari","Lambo","BMW","Tesla","Mustang","Audi","Nissan","Toyota","Honda","Mazda",
-"SupraMK4","GTR","Skyline","Bugatti","McLaren","Porsche","Civic","Camry","Hilux","Chiron",
-
-"Pixel","Glitch","Lag","Boost","Server","Ping","Headshot","Sniper","Assassin","Kill",
-"Win","Rank","Epic","Legendary","Mythic","Diamond","Gold","Silver","Bronze","Immortal",
-
-"Red","Blue","Black","White","Green","Yellow","Purple","Pink","Orange","Crimson",
-"Neon","Galaxy","Cosmic","Solar","Lunar","Star","Meteor","Astro","Orbit","Nova",
-
-"AlphaX","OmegaX","DarkX","ShadowX","GhostX","FireX","IceX","StormX","VoidX","BladeX",
-"KingX","QueenX","BossX","ProX","EliteX","LegendX","HunterX","MasterX","GodX","DevilX",
-
-"Player","Gamer","NoMercy","OneShot","DeadShot","HeadHunter","KillSwitch","GameOver","FinalBoss","LastHit"
+{name:"Santuy", w:70},{name:"Mabar", w:72},{name:"Rush", w:75},{name:"Solo", w:74},
+{name:"AnakKota", w:73},{name:"Gabut", w:71}
 ];
 
-// ===== SYMBOLS =====
 const symbol = ["⚡","々","✧","☠","★","〆","ツ"];
 
-// ===== RARITY =====
-function getRarity(){
-let r = Math.random();
-if(r < 0.5) return "COMMON";
-if(r < 0.75) return "RARE";
-if(r < 0.93) return "EPIC";
-return "LEGEND";
+/* =========================
+   🧠 WEIGHTED PICK SYSTEM
+========================= */
+function weightedPick(){
+let total = data.reduce((a,b)=>a+b.w,0);
+let r = Math.random()*total;
+
+for(let i=0;i<data.length;i++){
+r -= data[i].w;
+if(r <= 0) return data[i].name;
+}
+return data[0].name;
 }
 
+/* =========================
+   🏆 RARITY SYSTEM
+========================= */
+function rarity(score){
+if(score > 95) return "LEGEND";
+if(score > 85) return "EPIC";
+if(score > 70) return "RARE";
+return "COMMON";
+}
+
+/* =========================
+   📈 TREND SCORE
+========================= */
+function trendScore(){
+return Math.floor(60 + Math.random()*40);
+}
+
+/* =========================
+   🤖 GENERATE AI NAME
+========================= */
 function generate(){
 
-let w1 = words[Math.floor(Math.random()*words.length)];
-let w2 = words[Math.floor(Math.random()*words.length)];
+let a = weightedPick();
+let b = weightedPick();
 let s = symbol[Math.floor(Math.random()*symbol.length)];
 let n = Math.floor(Math.random()*9999);
 
-let name = `${w1}${w2}${s}${n}`;
-let rarity = getRarity();
+let name = `『${a}${b}』${s}${n}`;
+
+let score = trendScore();
 
 document.getElementById("hasil").innerText = name;
-document.getElementById("rarity").innerText = "RARITY: " + rarity;
+document.getElementById("rarity").innerText = "RARITY: " + rarity(score);
+document.getElementById("rank").innerText = "TREND SCORE: " + score;
 
 window.last = name;
 }
 
+/* =========================
+   COPY
+========================= */
 function copyText(){
 if(!window.last) return alert("Generate dulu!");
 navigator.clipboard.writeText(window.last);
 alert("Copied!");
 }
 
+/* =========================
+   SHARE WA
+========================= */
 function shareWA(){
 if(!window.last) return alert("Generate dulu!");
-let t = encodeURIComponent("🔥 Viral Name: " + window.last);
+let t = encodeURIComponent("🤖 AI Name: " + window.last);
 window.open("https://wa.me/?text="+t);
 }
 
