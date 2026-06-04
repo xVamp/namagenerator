@@ -3,42 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🤖 AI Name Generator V2</title>
+<title>Viral Name Generator - Free Gaming Nickname Tool</title>
+
+<meta name="description" content="Free AI-style name generator for gaming nickname. Create unique FF, ML, PUBG style names instantly.">
+<meta name="keywords" content="name generator, ff nickname, ml name, gaming name">
+<meta name="author" content="Ban9jeck">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4573252213838350"
+crossorigin="anonymous"></script>
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-height:100vh;
+background:#0a0a0a;
+color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-color:white;
-
-/* 🔥 CYBERPUNK ROBOT WALLPAPER */
-background:
-linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
-url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600");
-background-size:cover;
-background-position:center;
-overflow:hidden;
+min-height:100vh;
 }
 
 .container{
 width:95%;
-max-width:520px;
-background:rgba(10,10,10,0.85);
-border:1px solid #00ffff55;
-border-radius:15px;
+max-width:600px;
+background:#111;
 padding:20px;
-text-align:center;
-backdrop-filter:blur(10px);
-box-shadow:0 0 30px #00ffff33;
+border-radius:15px;
+box-shadow:0 0 20px #00ffff33;
 }
 
 h1{
-font-size:18px;
-text-shadow:0 0 10px #00ffff;
+text-align:center;
+color:#00ffff;
 }
 
 button{
@@ -57,33 +55,25 @@ font-weight:bold;
 
 .result{
 margin-top:15px;
-font-size:22px;
-font-weight:bold;
-color:#00ffcc;
-text-shadow:0 0 10px #00ffff;
-min-height:60px;
-}
-
-.badge{
-margin-top:10px;
-padding:6px 10px;
-display:inline-block;
+font-size:20px;
+text-align:center;
+padding:15px;
+border:1px solid #00ffff33;
 border-radius:10px;
-background:#111;
-border:1px solid #00ffff55;
-font-size:13px;
-}
-
-.rank{
-margin-top:5px;
-font-size:12px;
-opacity:0.8;
 }
 
 .footer{
-margin-top:10px;
-font-size:11px;
+margin-top:20px;
+font-size:12px;
 opacity:0.6;
+text-align:center;
+}
+
+.info{
+margin-top:20px;
+font-size:13px;
+opacity:0.8;
+line-height:1.5;
 }
 </style>
 </head>
@@ -92,114 +82,54 @@ opacity:0.6;
 
 <div class="container">
 
-<h1>🤖 AI NAME GENERATOR V2</h1>
+<h1>🔥 Viral Name Generator</h1>
 
-<button class="gen" onclick="generate()">⚡ GENERATE AI NAME</button>
-<button class="copy" onclick="copyText()">📋 COPY</button>
-<button class="wa" onclick="shareWA()">📤 SHARE WA</button>
+<button class="gen" onclick="generate()">Generate Name</button>
+<button class="copy" onclick="copyText()">Copy</button>
+<button class="wa" onclick="shareWA()">Share WA</button>
 
 <div class="result" id="hasil">Klik Generate</div>
-<div class="badge" id="rarity">RARITY: -</div>
-<div class="rank" id="rank">TREND SCORE: -</div>
+
+<div class="info">
+Generate nickname gaming untuk Free Fire, Mobile Legends, PUBG, dan social media. Gratis tanpa login.
+</div>
 
 <div class="footer">
-🤖 Cyberpunk AI Mode • Ban9jeck © 2026
+© 2026 Ban9jeck • All Rights Reserved
 </div>
 
 </div>
 
 <script>
-
-/* =========================
-   🧠 WEIGHTED AI DATA
-========================= */
-
-const data = [
-{name:"Gojo", w:95},{name:"Naruto", w:90},{name:"Luffy", w:88},{name:"Zoro", w:85},
-{name:"Itachi", w:92},{name:"Sasuke", w:90},{name:"Madara", w:93},{name:"Levi", w:89},
-
-{name:"Shadow", w:98},{name:"Dark", w:97},{name:"Ghost", w:95},{name:"Cyber", w:96},
-{name:"Alpha", w:90},{name:"Omega", w:88},{name:"Blade", w:85},{name:"Storm", w:87},
-
-{name:"King", w:80},{name:"Queen", w:78},{name:"Boss", w:82},{name:"Pro", w:85},
-{name:"Legend", w:99},{name:"Elite", w:93},{name:"Hunter", w:86},
-
-{name:"Santuy", w:70},{name:"Mabar", w:72},{name:"Rush", w:75},{name:"Solo", w:74},
-{name:"AnakKota", w:73},{name:"Gabut", w:71}
+const words = [
+"Gojo","Naruto","Luffy","Zoro","Shadow","Dark","Ghost",
+"King","Queen","Pro","Elite","Legend","Alpha","Omega",
+"Fire","Ice","Storm","Blade","Cyber","Ninja","Boss"
 ];
 
-const symbol = ["⚡","々","✧","☠","★","〆","ツ"];
+const symbol = ["⚡","々","✧","☠","★","〆"];
 
-/* =========================
-   🧠 WEIGHTED PICK SYSTEM
-========================= */
-function weightedPick(){
-let total = data.reduce((a,b)=>a+b.w,0);
-let r = Math.random()*total;
-
-for(let i=0;i<data.length;i++){
-r -= data[i].w;
-if(r <= 0) return data[i].name;
-}
-return data[0].name;
-}
-
-/* =========================
-   🏆 RARITY SYSTEM
-========================= */
-function rarity(score){
-if(score > 95) return "LEGEND";
-if(score > 85) return "EPIC";
-if(score > 70) return "RARE";
-return "COMMON";
-}
-
-/* =========================
-   📈 TREND SCORE
-========================= */
-function trendScore(){
-return Math.floor(60 + Math.random()*40);
-}
-
-/* =========================
-   🤖 GENERATE AI NAME
-========================= */
 function generate(){
-
-let a = weightedPick();
-let b = weightedPick();
+let a = words[Math.floor(Math.random()*words.length)];
+let b = words[Math.floor(Math.random()*words.length)];
 let s = symbol[Math.floor(Math.random()*symbol.length)];
 let n = Math.floor(Math.random()*9999);
 
-let name = `『${a}${b}』${s}${n}`;
+let result = `『${a}${b}』${s}${n}`;
 
-let score = trendScore();
-
-document.getElementById("hasil").innerText = name;
-document.getElementById("rarity").innerText = "RARITY: " + rarity(score);
-document.getElementById("rank").innerText = "TREND SCORE: " + score;
-
-window.last = name;
+document.getElementById("hasil").innerText = result;
+window.last = result;
 }
 
-/* =========================
-   COPY
-========================= */
 function copyText(){
-if(!window.last) return alert("Generate dulu!");
-navigator.clipboard.writeText(window.last);
+navigator.clipboard.writeText(window.last || "");
 alert("Copied!");
 }
 
-/* =========================
-   SHARE WA
-========================= */
 function shareWA(){
-if(!window.last) return alert("Generate dulu!");
-let t = encodeURIComponent("🤖 AI Name: " + window.last);
+let t = encodeURIComponent(window.last || "");
 window.open("https://wa.me/?text="+t);
 }
-
 </script>
 
 </body>
