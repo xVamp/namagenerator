@@ -3,13 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ Ban9jeck APK Name Generator</title>
+<title>⚡ Ban9jeck Viral APK Generator</title>
+
+<link rel="manifest" href="data:application/manifest+json,{
+  \"name\":\"Ban9jeck Generator\",
+  \"short_name\":\"Generator\",
+  \"start_url\":\".\",
+  \"display\":\"standalone\",
+  \"background_color\":\"#000000\",
+  \"theme_color\":\"#00ffff\"
+}">
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-background:#050505;
+background:black;
 color:white;
 display:flex;
 justify-content:center;
@@ -21,91 +30,93 @@ overflow:hidden;
 .container{
 width:95%;
 max-width:520px;
-background:rgba(10,10,10,0.9);
-padding:20px;
-border-radius:18px;
+background:rgba(20,20,20,0.9);
+padding:18px;
+border-radius:15px;
 text-align:center;
 box-shadow:0 0 25px #00ffff55;
-border:1px solid #00ffff33;
 }
 
 h1{
-font-size:20px;
+font-size:18px;
 text-shadow:0 0 10px #00ffff;
 }
 
-select,button{
+input,select,button{
 width:100%;
-padding:12px;
-margin-top:10px;
+padding:10px;
+margin-top:8px;
 border:none;
-border-radius:10px;
-font-size:14px;
-cursor:pointer;
+border-radius:8px;
 }
 
-.gen{
-background:#00e5ff;
+button{
+cursor:pointer;
 font-weight:bold;
 }
 
-.copy{
-background:#00c853;
-color:white;
-}
-
-.wa{
-background:#25D366;
-color:white;
-}
+.gen{background:#00e5ff;}
+.copy{background:#00c853;}
+.wa{background:#25D366;}
 
 .result{
-margin-top:15px;
-font-size:22px;
-font-weight:bold;
+margin-top:12px;
+font-size:20px;
 color:#00ffcc;
 text-shadow:0 0 10px #00ffff;
-min-height:50px;
-transition:0.2s;
+min-height:40px;
 }
 
-.loading{
-display:none;
+.box{
 margin-top:10px;
-color:#00e5ff;
-}
-
-.board{
-margin-top:15px;
-text-align:left;
 background:#111;
 padding:10px;
 border-radius:10px;
-max-height:150px;
+font-size:12px;
+text-align:left;
+max-height:120px;
 overflow:auto;
-font-size:13px;
 }
 
-.footer{
-margin-top:10px;
-font-size:10px;
-opacity:0.5;
+.login{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:10;
 }
 
-/* glow anim */
-@keyframes glow{
-0%{text-shadow:0 0 5px #00ffff;}
-50%{text-shadow:0 0 20px #00ffff;}
-100%{text-shadow:0 0 5px #00ffff;}
+.loginBox{
+background:#111;
+padding:20px;
+border-radius:10px;
+width:80%;
+max-width:300px;
+text-align:center;
 }
+
+.small{font-size:11px;opacity:0.6;}
+
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN FAKE -->
+<div class="login" id="login">
+<div class="loginBox">
+<h3>🔥 LOGIN USER</h3>
+<input id="user" placeholder="Username">
+<button onclick="enter()">Masuk</button>
+<p class="small">Server: Global Viral Mode</p>
+</div>
+</div>
+
 <div class="container">
 
-<h1>⚡ APK NAME GENERATOR ⚡</h1>
+<h1>⚡ VIRAL NAME GENERATOR ⚡</h1>
 
 <select id="kategori"></select>
 
@@ -113,92 +124,80 @@ opacity:0.5;
 <button class="copy" onclick="copyText()">📋 COPY</button>
 <button class="wa" onclick="shareWA()">📤 SHARE WA</button>
 
-<div class="loading" id="loading">Generating...</div>
+<div class="result" id="hasil">Login dulu</div>
 
-<div class="result" id="hasil">Klik Generate</div>
+<h3>🔥 LIVE VIRAL TIKTOK</h3>
+<div class="box" id="viral"></div>
 
-<h3>🔥 Trending Names</h3>
-<div class="board" id="board"></div>
-
-<div class="footer">⚡ Ban9jeck APK Mode © 2026 ⚡</div>
+<h3>🏆 GLOBAL LEADERBOARD</h3>
+<div class="box" id="board"></div>
 
 </div>
 
-<!-- SOUND -->
-<audio id="clickSound">
-<source src="https://www.soundjay.com/buttons/sounds/button-16.mp3">
+<!-- MUSIC -->
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3b2f1f4f2b.mp3?filename=cyberpunk-ambient-11049.mp3">
 </audio>
 
 <script>
 
-const data = {
-FF:["Alok","Kelly","Hayato","Chrono","Wukong","Skyler"],
-ML:["Alucard","Gusion","Lancelot","Ling","Fanny"],
-ANIME:["Naruto","Sasuke","Gojo","Itachi","Zoro","Luffy"],
-MOTOR:["Ninja","Vario","CBR","R15","Aerox"],
-LEGEND:["King","Queen","Titan","Alpha","Omega"],
-GHOST:["Pocong","Kuntilanak","Sundel","Wewe"],
-HACKER:["Zero","Root","Byte","Ghost","DarkNet"],
-DRAGON:["Fire","Ice","Storm","Void","Inferno"]
+const data={
+FF:["Alok","Kelly","Hayato","Chrono"],
+ML:["Alucard","Gusion","Ling","Fanny"],
+ANIME:["Naruto","Gojo","Zoro","Luffy"],
+MOTOR:["Ninja","Vario","CBR","R15"],
+LEGEND:["King","Queen","Titan","Omega"]
 };
 
-let trending = [];
+let user="";
+let current="";
 
-// isi dropdown
-let select=document.getElementById("kategori");
+// dropdown
+let sel=document.getElementById("kategori");
 for(let k in data){
-let opt=document.createElement("option");
-opt.value=k;
-opt.innerText=k;
-select.appendChild(opt);
+let o=document.createElement("option");
+o.value=k;
+o.innerText=k;
+sel.appendChild(o);
 }
 
-function playSound(){
-document.getElementById("clickSound").play();
-}
-
-function showLoading(){
-let load=document.getElementById("loading");
-load.style.display="block";
-setTimeout(()=>load.style.display="none",500);
-}
-
-function updateBoard(){
-let board=document.getElementById("board");
-board.innerHTML = trending.slice(-10).reverse().map(n=>`🔥 ${n}`).join("<br>");
+function enter(){
+user=document.getElementById("user").value || "Guest";
+document.getElementById("login").style.display="none";
+document.getElementById("hasil").innerText="Welcome "+user;
 }
 
 function generate(){
-playSound();
-showLoading();
 
-setTimeout(()=>{
 let k=document.getElementById("kategori").value;
-let list=data[k];
+let base=data[k][Math.floor(Math.random()*data[k].length)];
 
-let base=list[Math.floor(Math.random()*list.length)];
+current=`『${base}』々${Math.floor(Math.random()*999)}`;
 
-window.nama=`『${base}』々${Math.floor(Math.random()*999)}`;
+document.getElementById("hasil").innerText=current;
 
-document.getElementById("hasil").innerText=window.nama;
+// viral feed
+let v=document.getElementById("viral");
+let item=document.createElement("div");
+item.innerText="🔥 "+current+" by "+user;
+v.prepend(item);
 
-// trending system
-trending.push(window.nama);
-updateBoard();
+// leaderboard fake
+let b=document.getElementById("board");
+let lb=document.createElement("div");
+lb.innerText=user+" ➜ "+current;
+b.prepend(lb);
 
-},500);
 }
 
 function copyText(){
-if(!window.nama){alert("Generate dulu!");return;}
-navigator.clipboard.writeText(window.nama);
+navigator.clipboard.writeText(current || "");
 alert("Copied!");
 }
 
 function shareWA(){
-if(!window.nama){alert("Generate dulu!");return;}
-let text=encodeURIComponent("🔥 Nama Keren: "+window.nama);
-window.open("https://wa.me/?text="+text,"_blank");
+let t=encodeURIComponent("🔥 "+current);
+window.open("https://wa.me/?text="+t);
 }
 
 </script>
