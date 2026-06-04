@@ -3,22 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ Ban9jeck Viral APK Generator</title>
-
-<link rel="manifest" href="data:application/manifest+json,{
-  \"name\":\"Ban9jeck Generator\",
-  \"short_name\":\"Generator\",
-  \"start_url\":\".\",
-  \"display\":\"standalone\",
-  \"background_color\":\"#000000\",
-  \"theme_color\":\"#00ffff\"
-}">
+<title>⚡ Infinite Name Generator Pro</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-background:black;
+background:linear-gradient(135deg,#050505,#111);
 color:white;
 display:flex;
 justify-content:center;
@@ -31,28 +22,26 @@ overflow:hidden;
 width:95%;
 max-width:520px;
 background:rgba(20,20,20,0.9);
-padding:18px;
+padding:20px;
 border-radius:15px;
 text-align:center;
 box-shadow:0 0 25px #00ffff55;
+border:1px solid #00ffff33;
 }
 
 h1{
-font-size:18px;
+font-size:20px;
 text-shadow:0 0 10px #00ffff;
 }
 
-input,select,button{
+select,button{
 width:100%;
-padding:10px;
-margin-top:8px;
+padding:12px;
+margin-top:10px;
 border:none;
-border-radius:8px;
-}
-
-button{
+border-radius:10px;
+font-size:14px;
 cursor:pointer;
-font-weight:bold;
 }
 
 .gen{background:#00e5ff;}
@@ -60,143 +49,120 @@ font-weight:bold;
 .wa{background:#25D366;}
 
 .result{
-margin-top:12px;
-font-size:20px;
+margin-top:15px;
+font-size:22px;
+font-weight:bold;
 color:#00ffcc;
 text-shadow:0 0 10px #00ffff;
-min-height:40px;
+min-height:50px;
+word-break:break-word;
+animation:glow 1.5s infinite alternate;
 }
 
-.box{
+@keyframes glow{
+from{ text-shadow:0 0 5px #00ffff; }
+to{ text-shadow:0 0 20px #00ffff; }
+}
+
+.footer{
 margin-top:10px;
-background:#111;
-padding:10px;
-border-radius:10px;
-font-size:12px;
-text-align:left;
-max-height:120px;
-overflow:auto;
+font-size:11px;
+opacity:0.6;
 }
-
-.login{
-position:fixed;
-inset:0;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:10;
-}
-
-.loginBox{
-background:#111;
-padding:20px;
-border-radius:10px;
-width:80%;
-max-width:300px;
-text-align:center;
-}
-
-.small{font-size:11px;opacity:0.6;}
-
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN FAKE -->
-<div class="login" id="login">
-<div class="loginBox">
-<h3>🔥 LOGIN USER</h3>
-<input id="user" placeholder="Username">
-<button onclick="enter()">Masuk</button>
-<p class="small">Server: Global Viral Mode</p>
-</div>
-</div>
-
 <div class="container">
 
-<h1>⚡ VIRAL NAME GENERATOR ⚡</h1>
+<h1>⚡ INFINITE NAME GENERATOR PRO ⚡</h1>
 
-<select id="kategori"></select>
+<select id="kategori">
+<option value="ANIME">ANIME</option>
+<option value="MOTOR">MOTOR</option>
+<option value="MOBIL">MOBIL</option>
+<option value="FF">FF</option>
+</select>
 
 <button class="gen" onclick="generate()">🎲 GENERATE</button>
 <button class="copy" onclick="copyText()">📋 COPY</button>
 <button class="wa" onclick="shareWA()">📤 SHARE WA</button>
 
-<div class="result" id="hasil">Login dulu</div>
+<div class="result" id="hasil">Klik Generate</div>
 
-<h3>🔥 LIVE VIRAL TIKTOK</h3>
-<div class="box" id="viral"></div>
-
-<h3>🏆 GLOBAL LEADERBOARD</h3>
-<div class="box" id="board"></div>
+<div class="footer">
+⚡ Ban9jeck Infinite Mode © 2026 ⚡
+</div>
 
 </div>
 
-<!-- MUSIC -->
-<audio autoplay loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3b2f1f4f2b.mp3?filename=cyberpunk-ambient-11049.mp3">
-</audio>
-
 <script>
 
-const data={
-FF:["Alok","Kelly","Hayato","Chrono"],
-ML:["Alucard","Gusion","Ling","Fanny"],
-ANIME:["Naruto","Gojo","Zoro","Luffy"],
-MOTOR:["Ninja","Vario","CBR","R15"],
-LEGEND:["King","Queen","Titan","Omega"]
+// ===== 20 LIST PER KATEGORI =====
+const data = {
+ANIME:[
+"Gojo","Naruto","Sasuke","Itachi","Luffy","Zoro","Eren","Levi","Tanjiro","Sukuna",
+"Killua","Gon","Hisoka","Madara","Obito","Minato","Kakashi","Sanji","Shanks","Law"
+],
+
+MOTOR:[
+"Ninja","Vario","CBR","R15","Aerox","Supra","MT15","KLX","Scoopy","Fino",
+"PCX","Beat","Satria","GSX","Duke","Kawasaki","Yamaha","Honda","Suzuki","XSR"
+],
+
+MOBIL:[
+"Supra","Ferrari","BMW","Lambo","Tesla","Mustang","Audi","Porsche","Bugatti","McLaren",
+"Toyota","Honda","Nissan","Mazda","Lexus","GTR","Civic","Camry","Alphard","Hilux"
+],
+
+FF:[
+"Alok","Kelly","Hayato","Chrono","Wukong","Skyler","Dimitri","Kenta","Miguel","Andrew",
+"Caroline","Laura","Shani","Moco","Jota","Wolfrahh","Kapella","Maro","Orion","Xayne"
+]
 };
 
-let user="";
-let current="";
+// ===== INFINITE PART =====
+const prefix = [
+"Dark","Shadow","Ghost","Cyber","Night",
+"Alpha","Omega","Blade","Storm","Fire"
+];
 
-// dropdown
-let sel=document.getElementById("kategori");
-for(let k in data){
-let o=document.createElement("option");
-o.value=k;
-o.innerText=k;
-sel.appendChild(o);
-}
-
-function enter(){
-user=document.getElementById("user").value || "Guest";
-document.getElementById("login").style.display="none";
-document.getElementById("hasil").innerText="Welcome "+user;
-}
+const symbol = ["々","⚡","✧","☠","★","〆","ツ"];
 
 function generate(){
 
-let k=document.getElementById("kategori").value;
-let base=data[k][Math.floor(Math.random()*data[k].length)];
+let type = document.getElementById("kategori").value;
 
-current=`『${base}』々${Math.floor(Math.random()*999)}`;
+let baseList = data[type];
 
-document.getElementById("hasil").innerText=current;
+let p = prefix[Math.floor(Math.random()*prefix.length)];
+let b = baseList[Math.floor(Math.random()*baseList.length)];
+let s = symbol[Math.floor(Math.random()*symbol.length)];
+let n = Math.floor(Math.random()*9999);
 
-// viral feed
-let v=document.getElementById("viral");
-let item=document.createElement("div");
-item.innerText="🔥 "+current+" by "+user;
-v.prepend(item);
+let result = `『${p}${b}』${s}${n}`;
 
-// leaderboard fake
-let b=document.getElementById("board");
-let lb=document.createElement("div");
-lb.innerText=user+" ➜ "+current;
-b.prepend(lb);
+document.getElementById("hasil").innerText = result;
+window.last = result;
 
 }
 
 function copyText(){
-navigator.clipboard.writeText(current || "");
+if(!window.last){
+alert("Generate dulu!");
+return;
+}
+navigator.clipboard.writeText(window.last);
 alert("Copied!");
 }
 
 function shareWA(){
-let t=encodeURIComponent("🔥 "+current);
+if(!window.last){
+alert("Generate dulu!");
+return;
+}
+let t = encodeURIComponent("🔥 Name: " + window.last);
 window.open("https://wa.me/?text="+t);
 }
 
