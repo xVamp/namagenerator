@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Viral Name Generator - Free Gaming Nickname Tool</title>
 
-<meta name="description" content="Free AI-style name generator for gaming nickname. Create unique FF, ML, PUBG style names instantly.">
-<meta name="keywords" content="name generator, ff nickname, ml name, gaming name">
-<meta name="author" content="Ban9jeck">
+<title>Viral Name Generator - Gaming Nickname Tool</title>
 
-<!-- AdSense -->
+<meta name="description" content="Generator nama gaming keren untuk Free Fire, Mobile Legends, PUBG, TikTok gratis.">
+<meta name="keywords" content="name generator, ff nickname, ml name, pubg name, gaming name">
+
+<!-- ✅ ADSENSE SCRIPT (WAJIB DI HEAD) -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4573252213838350"
 crossorigin="anonymous"></script>
 
@@ -21,17 +21,17 @@ background:#0a0a0a;
 color:white;
 display:flex;
 justify-content:center;
-align-items:center;
 min-height:100vh;
 }
 
 .container{
 width:95%;
-max-width:600px;
+max-width:650px;
 background:#111;
 padding:20px;
 border-radius:15px;
-box-shadow:0 0 20px #00ffff33;
+margin-top:20px;
+box-shadow:0 0 20px #00ffff22;
 }
 
 h1{
@@ -55,25 +55,25 @@ font-weight:bold;
 
 .result{
 margin-top:15px;
+padding:15px;
 font-size:20px;
 text-align:center;
-padding:15px;
 border:1px solid #00ffff33;
 border-radius:10px;
 }
 
-.footer{
-margin-top:20px;
-font-size:12px;
-opacity:0.6;
-text-align:center;
+.section{
+margin-top:25px;
+font-size:14px;
+line-height:1.6;
+opacity:0.9;
 }
 
-.info{
+.footer{
 margin-top:20px;
-font-size:13px;
-opacity:0.8;
-line-height:1.5;
+font-size:11px;
+text-align:center;
+opacity:0.5;
 }
 </style>
 </head>
@@ -90,8 +90,30 @@ line-height:1.5;
 
 <div class="result" id="hasil">Klik Generate</div>
 
-<div class="info">
-Generate nickname gaming untuk Free Fire, Mobile Legends, PUBG, dan social media. Gratis tanpa login.
+<!-- 🧠 KONTEN SEO (PENTING UNTUK ADSENSE) -->
+<div class="section">
+<h2>Apa itu Viral Name Generator?</h2>
+<p>
+Viral Name Generator adalah tools gratis untuk membuat nama gaming unik, keren, dan aesthetic.
+Cocok untuk Free Fire, Mobile Legends, PUBG, TikTok, dan sosial media.
+</p>
+
+<p>
+Website ini membantu pemain mendapatkan nickname keren secara instan tanpa ribet.
+Cukup klik tombol generate, maka nama akan dibuat otomatis dengan kombinasi kata dan simbol.
+</p>
+
+<h3>Fitur Website</h3>
+<ul>
+<li>Generator nama otomatis</li>
+<li>500+ kombinasi kata</li>
+<li>Style gaming & anime</li>
+<li>Copy & share WhatsApp</li>
+</ul>
+
+<p>
+Nickname yang dihasilkan bisa digunakan untuk profile game atau akun sosial media agar terlihat lebih keren dan unik.
+</p>
 </div>
 
 <div class="footer">
@@ -102,12 +124,12 @@ Generate nickname gaming untuk Free Fire, Mobile Legends, PUBG, dan social media
 
 <script>
 const words = [
-"Gojo","Naruto","Luffy","Zoro","Shadow","Dark","Ghost",
-"King","Queen","Pro","Elite","Legend","Alpha","Omega",
-"Fire","Ice","Storm","Blade","Cyber","Ninja","Boss"
+"Gojo","Naruto","Luffy","Zoro","Itachi","Sasuke","Madara",
+"Shadow","Dark","Ghost","Cyber","Alpha","Omega",
+"King","Queen","Pro","Elite","Legend","Fire","Ice","Storm","Blade","Ninja"
 ];
 
-const symbol = ["⚡","々","✧","☠","★","〆"];
+const symbol = ["⚡","々","✧","☠","★","〆","ツ"];
 
 function generate(){
 let a = words[Math.floor(Math.random()*words.length)];
@@ -122,13 +144,14 @@ window.last = result;
 }
 
 function copyText(){
-navigator.clipboard.writeText(window.last || "");
+if(!window.last) return alert("Generate dulu!");
+navigator.clipboard.writeText(window.last);
 alert("Copied!");
 }
 
 function shareWA(){
-let t = encodeURIComponent(window.last || "");
-window.open("https://wa.me/?text="+t);
+if(!window.last) return alert("Generate dulu!");
+window.open("https://wa.me/?text="+encodeURIComponent(window.last));
 }
 </script>
 
