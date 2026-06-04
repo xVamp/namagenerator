@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generator Nama FF</title>
+</head>
+<body>
+<h1>Generator Nama FF Keren</h1>
+
+<button onclick="gen()">Generate</button>
+
+<p id="hasil"></p>
+
+<script>
+const nama = [
+"『Dark』亗King",
+"꧁༒Shadow༒꧂",
+"⚡Legend⚡",
+"☠Death☠",
+"Ghost々Pro"
+];
+
+function gen(){
+document.getElementById("hasil").innerHTML =
+nama[Math.floor(Math.random()*nama.length)];
+}
+</script>
+
+</body>
+</html>
