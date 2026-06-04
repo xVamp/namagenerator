@@ -3,53 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ban9jeck Name Generator 50+</title>
+<title>Ban9jeck Neon Name Generator</title>
 
 <style>
 body{
+margin:0;
 font-family:Arial;
-background:#0f0f0f;
+background:#050505;
 color:white;
-text-align:center;
-padding:30px;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+/* animasi background neon */
+body::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:radial-gradient(circle, rgba(0,255,255,0.1), transparent 60%);
+animation:move 6s infinite linear;
+}
+
+@keyframes move{
+0%{transform:translate(0,0);}
+50%{transform:translate(-10%,10%);}
+100%{transform:translate(0,0);}
 }
 
 .container{
-max-width:650px;
-margin:auto;
-background:#1c1c1c;
+position:relative;
+z-index:2;
+background:rgba(10,10,10,0.85);
+backdrop-filter:blur(10px);
 padding:25px;
-border-radius:15px;
+border-radius:18px;
+width:90%;
+max-width:500px;
+text-align:center;
+box-shadow:0 0 25px #00ffff55;
+border:1px solid #00ffff33;
+}
+
+h1{
+font-size:22px;
+text-shadow:0 0 10px #00ffff;
 }
 
 select,button{
+width:100%;
 padding:12px;
-margin:8px;
-border-radius:10px;
+margin-top:10px;
 border:none;
+border-radius:10px;
 font-size:14px;
-width:90%;
-max-width:300px;
+outline:none;
 }
 
 button{
-background:#00e5ff;
-font-weight:bold;
 cursor:pointer;
+font-weight:bold;
+transition:0.2s;
+}
+
+.gen{
+background:#00e5ff;
+box-shadow:0 0 15px #00e5ff88;
+}
+
+.gen:hover{
+transform:scale(1.05);
+}
+
+.copy{
+background:#00c853;
+color:white;
+box-shadow:0 0 15px #00c85388;
+}
+
+.wa{
+background:#25D366;
+color:white;
+box-shadow:0 0 15px #25D36688;
 }
 
 .result{
 margin-top:20px;
 font-size:24px;
+font-weight:bold;
 color:#00ffcc;
+text-shadow:0 0 10px #00ffff;
 min-height:50px;
+animation:glow 1.5s infinite alternate;
+word-break:break-word;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 5px #00ffff;}
+to{text-shadow:0 0 20px #00ffff;}
 }
 
 .footer{
-margin-top:20px;
-font-size:12px;
+margin-top:15px;
+font-size:11px;
 opacity:0.6;
 }
+
 </style>
 </head>
 
@@ -57,64 +119,62 @@ opacity:0.6;
 
 <div class="container">
 
-<h1>🎮 Name Generator 50+ Kategori</h1>
+<h1>⚡ NEON NAME GENERATOR ⚡</h1>
 
 <select id="kategori"></select>
 
-<br>
+<button class="gen" onclick="generate()">🎲 GENERATE</button>
+<button class="copy" onclick="copyText()">📋 COPY</button>
+<button class="wa" onclick="shareWA()">📤 SHARE WA</button>
 
-<button onclick="generate()">🎲 Generate Nama</button>
-
-<div class="result" id="hasil">Hasil muncul di sini</div>
+<div class="result" id="hasil">Klik Generate</div>
 
 <div class="footer">
-⚡ Ban9jeck Tools © 2026 ⚡
+⚡ Ban9jeck Neon Tools © 2026 ⚡
 </div>
 
 </div>
 
 <script>
 
-// ===== 50 KATEGORI =====
-const categories = [
-"FF","ML","PUBG","FF_GUILD","ML_GUILD","TIKTOK","YT","INSTAGRAM","VIP","PRO",
-"NOOB","HARDCORE","SADBOY","ALONE","SADGIRL","HACKER","STREAMER","GAMER","BOOYAH","WIN",
-"LOSE","RANKED","CLAN","ESPORT","TOURNAMENT","INDO","SULSEL","MAKASSAR","PAREPARE","PANGKEP",
-"MOTOR","MOBIL","SUPERCAR","MOTOGP","DRIFT","ANIME","NARUTO","ONEPIECE","JUJUTSU","DEMONSLAYER",
-"HORROR","POCONG","KUNTILANAK","MEME","FUNNY","RANDOM","GHOST","KING","LEGEND","DRAGON"
-];
-
-// ===== POOL KATA =====
-const words = [
-"Dark","Shadow","Ghost","King","Queen","Dragon","Titan","Hunter",
-"Legend","Viper","Storm","Thunder","Reaper","Phantom","Blaze","Fury"
-];
-
-const symbol = ["⚡","亗","々","☠","メ","✧"];
-
-function random(arr){
-return arr[Math.floor(Math.random()*arr.length)];
-}
+const data = {
+FF:["Alok","Kelly","Hayato","Chrono","Wukong","Skyler"],
+ML:["Alucard","Gusion","Lancelot","Ling","Fanny"],
+ANIME:["Naruto","Sasuke","Gojo","Itachi","Zoro","Luffy"],
+MOTOR:["Ninja","Vario","CBR","R15","Aerox"],
+LEGEND:["King","Queen","Titan","Alpha","Omega"],
+GHOST:["Pocong","Kuntilanak","Sundel","Wewe"],
+HACKER:["Zero","Root","Byte","Ghost","DarkNet"],
+DRAGON:["Fire","Ice","Storm","Void","Inferno"]
+};
 
 // isi dropdown
 let select = document.getElementById("kategori");
-categories.forEach(c=>{
-let opt = document.createElement("option");
-opt.value = c;
-opt.innerText = c;
+for(let k in data){
+let opt=document.createElement("option");
+opt.value=k;
+opt.innerText=k;
 select.appendChild(opt);
-});
+}
 
 function generate(){
+let k=document.getElementById("kategori").value;
+let list=data[k];
+let base=list[Math.floor(Math.random()*list.length)];
 
-let kategori = document.getElementById("kategori").value;
+window.nama=`『${base}』々${Math.floor(Math.random()*999)}`;
 
-// pakai kata random (biar tidak ribet 50 logic)
-let base = random(words);
+document.getElementById("hasil").innerText=window.nama;
+}
 
-let hasil = `『${kategori}-${base}』${random(symbol)}${Math.floor(Math.random()*999)}`;
+function copyText(){
+navigator.clipboard.writeText(window.nama || "");
+alert("Copied!");
+}
 
-document.getElementById("hasil").innerText = hasil;
+function shareWA(){
+let text = encodeURIComponent("🔥 Nama Keren: " + window.nama);
+window.open("https://wa.me/?text="+text,"_blank");
 }
 
 </script>
